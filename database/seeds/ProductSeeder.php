@@ -5,7 +5,7 @@ use App\Models\Test;
 use App\Models\TestQuestion;
 use App\Models\QuestionOption;
 
-class TestSeeder extends Seeder
+class ProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
