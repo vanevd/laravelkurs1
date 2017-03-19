@@ -26,3 +26,7 @@ Route::post('clients/{client_id}', 'ClientController@update');
 Route::resource('products', 'ProductController');
 Route::resource('orders', 'OrderController');
 
+Route::get('tests', 'TestController@index');
+Route::get('tests/{test_id}', 'TestController@show');
+Route::post('tests/{test_id}', 'TestController@submit');
+
