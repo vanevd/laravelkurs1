@@ -14,6 +14,7 @@
 @if ($test)
 <form method="POST" action='/tests/{{$test->id}}'>
 {{ csrf_field() }}
+<input type="hidden" name="page" value="{{ $page }}">
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">   
@@ -21,7 +22,7 @@
         </div>
     </div>
 </div>
-@foreach ($test->questions as $question) 
+@foreach ($questions as $question) 
 <div class="panel panel-default">
     <div class="panel-body">
     <div class="row">    
@@ -38,11 +39,22 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">    
-            <input class="btn btn-primary" type="submit" value="submit">
+            @if ($page > 1)
+            <input class="btn btn-primary" name="previous" type="submit" value="previous">
+            @endif
+            @if ($page < $count_pages)
+            <input class="btn btn-primary" name="next" type="submit" value="next">
+            @endif
+            @if ($page == $count_pages)
+            <input class="btn btn-primary" name="submit" type="submit" value="submit">
+            @endif
         </div>    
     </div>
 </div>            
 </form>
+@foreach ($answers as $key => $answer) 
+    [{{$key}}] => {{$answer}}<br>
+@endforeach
 @else
     Test not found
 @endif
