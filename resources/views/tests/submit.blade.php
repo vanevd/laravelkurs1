@@ -15,6 +15,8 @@
 
 Test submitted successfuly.
 
+Scores: {{ $scores }} from {{ $max_scores }}
+
 @else
     Test not found
 @endif
