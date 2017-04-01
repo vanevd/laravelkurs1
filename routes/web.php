@@ -24,10 +24,15 @@ Route::get('clients/{client_id}/delete', 'ClientController@destroy');
 Route::post('clients/{client_id}', 'ClientController@update');
 
 Route::resource('products', 'ProductController');
+
 Route::get('products/{product_id}/delete', 'ProductController@destroy');
 Route::post('products/{product_id}', 'ProductController@update');
 
+
 Route::resource('orders', 'OrderController');
+//Route::get('orders/new', function () { return view('orders.create', $data); });
+Route::get('orders/create', 'OrderController@create');
+Route::get('orders/{order_id}/delete', 'OrderController@destroy');
 
 Route::get('tests', 'TestController@index');
 Route::get('tests/{test_id}', 'TestController@show');
