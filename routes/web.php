@@ -24,6 +24,9 @@ Route::get('clients/{client_id}/delete', 'ClientController@destroy');
 Route::post('clients/{client_id}', 'ClientController@update');
 
 Route::resource('products', 'ProductController');
+Route::get('products/{product_id}/delete', 'ProductController@destroy');
+Route::post('products/{product_id}', 'ProductController@update');
+
 Route::resource('orders', 'OrderController');
 
 Route::get('tests', 'TestController@index');
