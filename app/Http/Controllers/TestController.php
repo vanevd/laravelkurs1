@@ -10,7 +10,7 @@ use App\Models\QuestionOption;
 class TestController extends Controller
 {
     private $questions_per_page = 2;
-    private $mode = 3; // 1,2,3
+    private $mode; // 1,2,3
 
     public function index()
     {
@@ -33,6 +33,7 @@ class TestController extends Controller
     public function submit($test_id, Request $request)
     {
         try {
+            $this->mode = config('test.mode');
             $page = $request->get('page');
             $test = Test::find($test_id);
             $answers = $request->session()->get('answers', []);
