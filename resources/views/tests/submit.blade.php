@@ -15,7 +15,8 @@
 
 Test submitted successfuly.
 
-Scores: {{ $scores }} from {{ $max_scores }}
+Scores: {{ $scores }} from {{ $max_scores }}<br>
+<a href="/tests">Start new test</a>
 
 @else
     Test not found

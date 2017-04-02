@@ -15,6 +15,15 @@
 <form method="POST" action='/tests/{{$test->id}}'>
 {{ csrf_field() }}
 <input type="hidden" name="page" value="{{ $page }}">
+@if (isset($error))
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">   
+            <font color="red"><b>{{ $error }}</b></font>
+        </div>
+    </div>
+</div>
+@endif
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">   
@@ -30,7 +39,7 @@
     </div>    
         @foreach ($question->options as $option) 
         <div class="row">    
-            <input type="radio" name="question_{{$question->id}}" value="{{$option->num}}"> {{ $option->option }}
+            <input type="radio" name="question_{{$question->id}}" value="{{$option->num}}" @if (isset($answers[$question->id])) @if ($answers[$question->id] == $option->num) checked @endif @endif> {{ $option->option }}
         </div>    
         @endforeach        
     </div>        
@@ -52,9 +61,6 @@
     </div>
 </div>            
 </form>
-@foreach ($answers as $key => $answer) 
-    [{{$key}}] => {{$answer}}<br>
-@endforeach
 @else
     Test not found
 @endif
