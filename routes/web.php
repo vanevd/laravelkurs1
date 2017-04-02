@@ -27,10 +27,9 @@ Route::resource('products', 'ProductController');
 Route::get('products/{product_id}/delete', 'ProductController@destroy');
 Route::post('products/{product_id}', 'ProductController@update');
 
-
+Route::get('orders/new', 'OrderController@create');
 Route::resource('orders', 'OrderController');
-//Route::get('orders/new', function () { return view('orders.create', $data); });
-Route::get('orders/create', 'OrderController@create');
+
 Route::get('orders/{order_id}/delete', 'OrderController@destroy');
 
 Route::get('tests', 'TestController@index');
