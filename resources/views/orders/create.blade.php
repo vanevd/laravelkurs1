@@ -40,8 +40,8 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <select name="client_id" class="form-control">
-                        @foreach ($client_ids as $id)
-                          <option class="form-control" value="{{ $id }}">{{ $id }}</option>
+                        @foreach ($clients as $client)
+                          <option class="form-control" value="{{ $client->id }}">{{ $client->first_name . ' ' . $client->last_name }}</option>
                         @endforeach
                         </select>
 

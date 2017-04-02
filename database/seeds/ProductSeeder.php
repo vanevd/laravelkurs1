@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Test;
-use App\Models\TestQuestion;
-use App\Models\QuestionOption;
+use App\Models\Product;
 
 class ProductSeeder extends Seeder
 {
@@ -14,109 +12,38 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        $tests = [
+        $products = [
             [
-                'name' => 'PHP',
-                'level' => 1,
-                'questions' => [
-                    [
-                        'num' => 1,
-                        'question' => 'What does PHP stand for?',
-                        'options' => [
-                            [
-                                'num' => 1,
-                                'option' => 'Personal Hypertext Processor',
-                            ],    
-                            [
-                                'num' => 2,
-                                'option' => 'Private Home Page',
-                            ],    
-                            [
-                                'num' => 3,
-                                'option' => 'PHP: Hypertext Preprocessor',
-                                'right' => 1,
-                            ],    
-                        ],
-                    ],
-                    [
-                        'num' => 2,
-                        'question' => 'PHP server scripts are surrounded by delimiters, which?',
-                        'options' => [
-                            [
-                                'num' => 1,
-                                'option' => '<?php...?>',
-                                'right' => 1,
-                            ],    
-                            [
-                                'num' => 2,
-                                'option' => '<?php>...</?>',
-                            ],    
-                            [
-                                'num' => 3,
-                                'option' => '<script>...</script>',
-                            ],                              [
-                                'num' => 4,
-                                'option' => '<&>...</&>',
-                            ],    
-                        ],
-                    ],
-                    [
-                        'num' => 3,
-                        'question' => 'How do you write "Hello World" in PHP',
-                        'options' => [
-                            [
-                                'num' => 1,
-                                'option' => 'echo "Hello World";',
-                                'right' => 1,
-                            ],    
-                            [
-                                'num' => 2,
-                                'option' => 'Document.Write("Hello World");',
-                            ],    
-                            [
-                                'num' => 3,
-                                'option' => '"Hello World";',
-                            ],    
-                        ],
-                    ],
-                ]
+                'product_name' => 'Tablet Lenovo',
+                'product_code' => '4556',
+                'price' => '95.00',
+            ],
+            [
+                'product_name' => 'Tablet Asus 12',
+                'product_code' => '7878',
+                'price' => '320.00',
+            ],
+            [
+                'product_name' => 'Samsung',
+                'product_code' => '3467',
+                'price' => '120.00',
+            ],
+            [
+                'product_name' => 'GSM Samsung',
+                'product_code' => '2478',
+                'price' => '199.00',
             ],
         ];
 
-        foreach ($tests as $test_item) {
-            $test = Test::where('name', $test_item['name'])->first();
-            if (!$test) {
-                $test = new Test;
-                $test->name = $test_item['name'];
-                $test->level = $test_item['level'];
-                $test->save();
+        foreach ($products as $product_item) {
+            $product = Product::where('product_code', $product_item['product_code'])->first();
+            if (!$product) {
+                $product = new Product;
             }    
-
-            foreach ($test_item['questions'] as $question_item) {
-                $question = TestQuestion::where('test_id', $test->id)->where('num', $question_item['num'])->first();
-                if (!$question) {
-                    $question = new TestQuestion;
-                }    
-                $question->test_id = $test->id;
-                $question->num = $question_item['num'];
-                $question->question = $question_item['question'];
-                $question->save();    
-
-                foreach ($question_item['options'] as $option_item) {
-                    $option = QuestionOption::where('test_question_id', $question->id)->where('num', $option_item['num'])->first();
-                    if (!$option) {
-                        $option = new QuestionOption;
-                    }    
-                    $option->test_question_id = $question->id;
-                    $option->num = $option_item['num'];
-                    $option->option = $option_item['option'];
-                    if (isset($option_item['right'])) {
-                        $option->right = $option_item['right'];
-                    }    
-                    $option->save();
-                }                
-            }
-
+            $product->product_name = $product_item['product_name'];
+            $product->product_code = $product_item['product_code'];
+            $product->price = $product_item['price'];
+            $product->save();
         }    
     }
 }

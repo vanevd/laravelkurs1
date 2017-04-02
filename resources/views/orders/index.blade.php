@@ -30,7 +30,7 @@
             </tr>
             @endforeach
         </table>
-        <a class="btn btn-primary btn-xs" href='orders/create'>Create order</a>
+        <a class="btn btn-primary btn-xs" href='orders/new'>Create order</a>
     </div>
 </div>
 @endsection

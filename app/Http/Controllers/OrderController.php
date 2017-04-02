@@ -12,7 +12,7 @@ class OrderController extends Controller
     {
         $data = [];
         //$data['orders'] = Order::all();
-        $data['orders'] = Order::orderBy('id','asc')->get();
+        $data['orders'] = Order::orderBy('order_date','desc')->get();
 
         return view('orders.index', $data);
     }
@@ -20,7 +20,7 @@ class OrderController extends Controller
     public function create()
     {
         $data = [];
-        $data['client_ids'] = Client::get()->sortBy('id', SORT_NATURAL) -> pluck('id');
+        $data['clients'] = Client::select('id', 'first_name', 'last_name')->orderBy('first_name')->orderBy('last_name')->get();
         return view('orders.create', $data);
     }
 
