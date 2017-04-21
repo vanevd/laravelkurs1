@@ -2,54 +2,76 @@
 @extends('common.site')
 
 @section('title')
-    New client
+    Edit Order
 @endsection
 
 @section('main')
-<form method="POST" action='/clients/{{$client->id}}'>
 {{ csrf_field() }}
+
+
+
 
 <div class="panel panel-default">
     <div class="panel-body">
-            <div class="row">    
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label for="first_name">First Name:</label>
-                        <input class="form-control" id="first_name" type="text" name="first_name" value="{{$client->first_name}}">
-                    </div>
-                </div>
-            </div>    
-            <div class="row">    
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label for="last_name">Last Name:</label>
-                        <input class="form-control" id="last_name" type="text" name="last_name" value="{{$client->last_name}}">
-                    </div>
-                </div>
-            </div>    
-             <div class="row">    
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label for="phone">Phone:</label>
-                        <input class="form-control" id="phone" type="text" name="phone" value="{{$client->phone}}">
-                    </div>
-                </div>
-            </div>          
-            <div class="row">    
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input class="form-control" id="email" type="text" name="email" value="{{$client->email}}">
-                    </div>
-                </div>
-            </div>                        
-            <div class="row">    
-                <div class="col-sm-3">         
-                    <input class="btn btn-primary" type="submit" value="Update">
-                </div>
-            </div>    
+        <div class="row">    
+            <div class="col-sm-12">
+                <table class="myTable" border='1' cellpadding="10">
+                  <tbody>
+                    <tr>
+                      <th>ID</th>
+                      <th>Sum</th>
+                      <th>Client</th>
+                    </tr>
+                    @foreach ($order as $item) 
+                    <tr>
+                      <td>{{ $item->id }}</td>
+                      <td>{{ $item->order_sum }}</td>
+                      <td>{{ $item->client_id }}</td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+            </div>
+        </div>   
+         
+        <div class="row">    
+            <div class="col-sm-12">
+                <table class="myTable" border='1' cellpadding="10">
+                  <tbody>
+                    <tr>
+                      <th>Product</th>
+                      <th>Qty</th>
+                      <th>Price</th>
+                      <th>Sum</th>    
+                     <th class="snoborder"></th> 
+                    </tr>
+                    @foreach ($order_ids as $item) 
+                    <tr>
+                      <td>
+                       @foreach ($products as $product)
+                          @if ($product->id == $item->product_id)
+                          	{{ $product->product_name }}
+                          @endif
+					   @endforeach
+                      </td>
+                      <td>{{ $item->quantity }}</td>
+                      <td>{{ $item->price }}</td>
+                      <td>{{ $item->product_sum }}</td>
+                      <td><a class="btn btn-primary btn-xs">delete</a></td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+            </div>
+        </div>   
+         
+        <div class="row">    
+            <div class="col-sm-3">         
+                <input class="btn btn-primary" type="submit" value="Update">
+            </div>
+        </div>    
     </div>
 </div>
-</form>
+
 @endsection
 

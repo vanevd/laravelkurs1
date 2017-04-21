@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Client;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
@@ -59,14 +61,16 @@ class OrderController extends Controller
         return view('clients.show', $data);
     }
 
-    public function edit($client_id)
+    public function edit(Request $request, $order_id)
     {
-        $client = Client::find($client_id);
-        
         $data = [];
-        $data['client'] = $client;
-
-        return view('clients.edit', $data);
+		$data['order_id'] = $order_id;
+		$data['order'] = Order::where('id', $order_id)->get(); 
+        $data['order_ids'] = OrderDetail::where('order_id', $order_id)->get();
+        $data['client'] = Client::where('id', $data['order'][0]['client_id'])->get();
+        $data['products'] = Product::select('id', 'product_name')->orderBy('product_name')->get();
+//		var_dump($data); 		die();
+        return view('orders.edit', $data);
     }
 
     public function update(Request $request, $client_id)

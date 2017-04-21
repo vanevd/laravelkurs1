@@ -23,8 +23,8 @@
                 <td>{{ $product->product_name }}</td>
                 <td>{{ $product->product_code }}</td>
                 <td>{{ $product->price }}</td>
-                <td><a  class="btn btn-primary btn-xs" href='/products/{{ $product->id }}/delete'>delete</a></td>
-                <td><a class="btn btn-primary btn-xs" href='/products/{{ $product->id }}/edit'>edit</a></td>
+                <td><a  class="btn btn-primary btn-xs" href='products/{{ $product->id }}/delete'>delete</a></td>
+                <td><a class="btn btn-primary btn-xs" href='products/{{ $product->id }}/edit'>edit</a></td>
             </tr>
             @endforeach
         </table>
