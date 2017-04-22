@@ -51,26 +51,26 @@ class OrderController extends Controller
         return redirect()->action('OrderController@index');
     }
 
-    public function show($client_id)
-    {
-        $client = Client::find($client_id);
-        
-        $data = [];
-        $data['client'] = $client;
-        
-        return view('clients.show', $data);
-    }
-
-    public function edit(Request $request, $order_id)
+    public function edit($order_id)
     {
         $data = [];
 		$data['order_id'] = $order_id;
-		$data['order'] = Order::where('id', $order_id)->get(); 
+		$data['order'] = Order::find($order_id); 
         $data['order_ids'] = OrderDetail::where('order_id', $order_id)->get();
-        $data['client'] = Client::where('id', $data['order'][0]['client_id'])->get();
+        $data['client'] = Client::find($data['order']->client_id);
         $data['products'] = Product::select('id', 'product_name')->orderBy('product_name')->get();
 //		var_dump($data); 		die();
         return view('orders.edit', $data);
+    }
+
+    public function destroyProduct($order_detail_id)
+    {
+		$orderDetail = OrderDetail::find($order_detail_id);
+		if ($orderDetail) {
+			$order_id = $orderDetail->order_id;
+			$orderDetail->delete();	
+		}
+		return $this->edit($order_id);
     }
 
     public function update(Request $request, $client_id)

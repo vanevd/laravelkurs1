@@ -33,6 +33,8 @@ Route::get('orders/new', 'OrderController@create');
 Route::resource('orders', 'OrderController');
 Route::get('orders/{order_id}/delete', 'OrderController@destroy');
 Route::get('orders/{order_id}/edit', 'OrderController@edit');
+Route::get('order_details/{order_detail_id}/delete', 'OrderController@destroyProduct');
+Route::post('order_details', 'OrderController@storeProduct');
 
 Route::get('tests', 'TestController@index');
 Route::get('tests/{test_id}', 'TestController@show');
