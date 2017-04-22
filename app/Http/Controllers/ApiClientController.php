@@ -5,19 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Client;
 
-class ClientController extends Controller
+class ApiClientController extends Controller
 {
     public function index()
     {
         $data = [];
-        $data['clients'] = Client::all();
-
-        return view('clients.index', $data);
-    }
-
-    public function create()
-    {
-        return view('clients.create');
+        $data['status'] = 'ok';
+        $data['clients'] = Client::orderBy('id')->get();
+        return response()->json($data);
     }
 
     public function store(Request $request)
@@ -34,7 +29,9 @@ class ClientController extends Controller
         $client->phone = $phone;
         $client->save();
 
-        return redirect()->action('ClientController@index');
+        $data = [];
+        $data['status'] = 'ok';
+        return response()->json($data);
     }
 
     public function destroy($client_id)
@@ -42,27 +39,24 @@ class ClientController extends Controller
         $client = Client::find($client_id);
         $client->delete();
 
-        return redirect()->action('ClientController@index');
+        $data = [];
+        $data['status'] = 'ok';
+        return response()->json($data);
     }
 
     public function show($client_id)
     {
         $client = Client::find($client_id);
-        
         $data = [];
+        if ($client) {
+          $data['status'] = 'ok';
+          $data['error'] = null;
+        } else {
+          $data['status'] = 'error';
+          $data['error'] = 'Client not found!';
+        }  
         $data['client'] = $client;
-        
-        return view('clients.show', $data);
-    }
-
-    public function edit($client_id)
-    {
-        $client = Client::find($client_id);
-        
-        $data = [];
-        $data['client'] = $client;
-
-        return view('clients.edit', $data);
+        return response()->json($data);
     }
 
     public function update(Request $request, $client_id)
@@ -79,7 +73,9 @@ class ClientController extends Controller
         $client->phone = $phone;
         $client->save();
 
-        return redirect()->action('ClientController@index');
+        $data = [];
+        $data['status'] = 'ok';
+        return response()->json($data);
     }
     
 

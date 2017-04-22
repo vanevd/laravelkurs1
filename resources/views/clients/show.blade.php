@@ -26,7 +26,7 @@
                 <th>Delete</th>
                 <th>Edit</th>
             </tr>
-            @foreac ()) client in clients %} 
+            @foreach ()) client in clients %} 
             <tr>
                 <td>{{ $client['id'] }}</td>
                 <td>{{ $client['first_name'] }}</td>
