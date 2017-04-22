@@ -9,26 +9,25 @@
 {{ csrf_field() }}
 
 
-
-
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">    
             <div class="col-sm-12">
+            	<h2>Order details</h2>
                 <table class="myTable" border='1' cellpadding="10">
                   <tbody>
                     <tr>
                       <th>ID</th>
                       <th>Sum</th>
+                      <th>Date</th>
                       <th>Client</th>
                     </tr>
-                    @foreach ($order as $item) 
                     <tr>
-                      <td>{{ $item->id }}</td>
-                      <td>{{ $item->order_sum }}</td>
-                      <td>{{ $item->client_id }}</td>
+                      <td>{{ $order->id }}</td>
+                      <td>{{ $order->order_sum }}</td>
+                      <td>{{ $order->order_date }}</td>
+                      <td>{{ $client->first_name }} {{ $client->last_name }}</td>
                     </tr>
-                    @endforeach
                   </tbody>
                 </table>
             </div>
@@ -36,10 +35,12 @@
          
         <div class="row">    
             <div class="col-sm-12">
+            	<h2>Products in order</h2>
                 <table class="myTable" border='1' cellpadding="10">
                   <tbody>
                     <tr>
-                      <th>Product</th>
+                      <th>Product ID</th>
+                      <th>Product Name</th>
                       <th>Qty</th>
                       <th>Price</th>
                       <th>Sum</th>    
@@ -47,6 +48,7 @@
                     </tr>
                     @foreach ($order_ids as $item) 
                     <tr>
+                      <td>	{{ $item->product_id }}</td>
                       <td>
                        @foreach ($products as $product)
                           @if ($product->id == $item->product_id)
@@ -57,7 +59,7 @@
                       <td>{{ $item->quantity }}</td>
                       <td>{{ $item->price }}</td>
                       <td>{{ $item->product_sum }}</td>
-                      <td><a class="btn btn-primary btn-xs">delete</a></td>
+                      <td><a class="btn btn-primary btn-xs" href="/order_details/{{$item->id}}/delete">delete</a></td>
                     </tr>
                     @endforeach
                   </tbody>
