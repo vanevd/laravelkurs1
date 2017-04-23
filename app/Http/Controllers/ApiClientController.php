@@ -31,6 +31,8 @@ class ApiClientController extends Controller
 
         $data = [];
         $data['status'] = 'ok';
+        $data['html'] = view('clients.client_row', ['client' => $client])->render();
+        $data['client'] = $client;
         return response()->json($data);
     }
 
