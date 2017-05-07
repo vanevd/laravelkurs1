@@ -4,6 +4,7 @@
 @section('title', 'Clients')
 
 @section('main')
+<script src="/js/clients.js"></script>
 <div class="panel panel-default">
     <div class="panel-body">
                

@@ -29,6 +29,17 @@
       success: function(result){
         console.log(result);
         $('#table_client').append(result.html);
+      },
+      error: function(result){
+        console.log(result);
+        var error_message = "Some errors occured!";
+        if (result.status == 401) {
+          error_message = "You are not logged in!";
+        }  
+        if (result.status == 400) {
+          error_message = result.responseJSON.error_message;
+        }  
+        alert(error_message);
       }
     });
   }
@@ -55,6 +66,17 @@ function update_client(client_id) {
         $('#tr_'+client_id+' .email').html($('#tr_edit_'+client_id+' .email').val());
         $('#tr_'+client_id).show();
         $('#tr_edit_'+client_id).hide();
+      },
+      error: function(result){
+        console.log(result);
+        var error_message = "Some errors occured!";
+        if (result.status == 401) {
+          error_message = "You are not logged in!";
+        }  
+        if (result.status == 400) {
+          error_message = result.responseJSON.error_message;
+        }  
+        alert(error_message);
       }
     });
 }

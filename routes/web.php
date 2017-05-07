@@ -19,25 +19,30 @@ Route::get('/', function () {
 
 //Route::get('clients/{client_id}', 'ClientController@show');
 
-Route::resource('clients', 'ClientController');
-Route::get('clients/{client_id}/delete', 'ClientController@destroy');
-Route::post('clients/{client_id}', 'ClientController@update');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('clients', 'ClientController');
+    Route::get('clients/{client_id}/delete', 'ClientController@destroy');
+    Route::post('clients/{client_id}', 'ClientController@update');
 
-Route::resource('api/clients', 'ApiClientController');
-Route::resource('api/products', 'ApiProductController');
+    Route::resource('api/clients', 'ApiClientController');
+    Route::resource('api/products', 'ApiProductController');
 
-Route::resource('products', 'ProductController');
-Route::get('products/{product_id}/delete', 'ProductController@destroy');
-Route::post('products/{product_id}', 'ProductController@update');
+    Route::resource('products', 'ProductController');
+    Route::get('products/{product_id}/delete', 'ProductController@destroy');
+    Route::post('products/{product_id}', 'ProductController@update');
 
-Route::get('orders/new', 'OrderController@create');
-Route::resource('orders', 'OrderController');
-Route::get('orders/{order_id}/delete', 'OrderController@destroy');
-Route::get('orders/{order_id}/edit', 'OrderController@edit');
-Route::get('order_details/{order_detail_id}/delete', 'OrderController@destroyProduct');
-Route::post('order_details', 'OrderController@storeProduct');
+    Route::get('orders/new', 'OrderController@create');
+    Route::resource('orders', 'OrderController');
+    Route::get('orders/{order_id}/delete', 'OrderController@destroy');
+    Route::get('orders/{order_id}/edit', 'OrderController@edit');
+    Route::get('order_details/{order_detail_id}/delete', 'OrderController@destroyProduct');
+    Route::post('order_details', 'OrderController@storeProduct');
 
-Route::get('tests', 'TestController@index');
-Route::get('tests/{test_id}', 'TestController@show');
-Route::post('tests/{test_id}', 'TestController@submit');
+    Route::get('tests', 'TestController@index');
+    Route::get('tests/{test_id}', 'TestController@show');
+    Route::post('tests/{test_id}', 'TestController@submit');
+});
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

@@ -37,20 +37,28 @@ class ApiProductController extends Controller
         if (strlen($price) == 0) {
             $status = 'error';
             $error_message .= 'Price Missing;';
-        }
+        } else {
+            if (!is_numeric($price)) {
+                $status = 'error';
+                $error_message .= 'Price is not numeric;';
+            }
+        }    
         if ($status == 'ok')  {
             $product = new Product;
             $product->product_name = $request->get('product_name');
             $product->product_code = $request->get('product_code');
             $product->price = $request->get('price');
             $product->save();
+            $data['html'] = view('products.product_row', ['product' => $product])->render();
 
             $data['status'] = 'ok';
+            $http_status = 200;
         } else {
             $data['status'] = 'error';
             $data['error_message'] = $error_message;
+            $http_status = 400;
         }
-        return response()->json($data);
+        return response()->json($data, $http_status);
         
     }
 
@@ -106,7 +114,12 @@ class ApiProductController extends Controller
         if (strlen($price) == 0) {
             $status = 'error';
             $error_message .= 'Price Missing;';
-        }
+        } else {
+            if (!is_numeric($price)) {
+                $status = 'error';
+                $error_message .= 'Price is not numeric;';
+            }
+        }    
         if ($status == 'ok')  {
             $product->product_name = $request->get('product_name');
             $product->product_code = $request->get('product_code');
@@ -114,11 +127,13 @@ class ApiProductController extends Controller
             $product->save();
 
             $data['status'] = 'ok';
+            $http_status = 200;
         } else {
             $data['status'] = 'error';
             $data['error_message'] = $error_message;
+            $http_status = 400;
         }
-        return response()->json($data);
+        return response()->json($data, $http_status);
     }
 
     /**
